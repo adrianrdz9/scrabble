@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <title>Bonus de tiempo y porcentaje</title>
+		<meta charset="UTF-8"/>
+		<style>
+		    /*nota: el orden de las clases importa para su uso en css*/
+			.esc{
+			    display: none;
+			}
+			.bot{
+			    display: block;
+				margin: 2%;
+				padding: 2%;
+				border: 2px solid #008B8B;
+				background-color: #F0F8FF;
+				color: black;
+				position: absolute;
+			}
+			#bonus{
+			    top: 2%;
+		    }
+			#puntaje{
+			    top: 15%;
+			}
+		</style>
+	</head>
+	<body>
+	    <div id="bonus">
+		    <input id="bonus" class="esc" type="button" value="BONUS">
+		</div>
+		<div id="punt">
+		    <input id="puntaje" class="esc" type="button" value="PUNTAJE">
+		</div>
+	<body>
+	<script type='text/javascript'>
+	    var divbon = document.getElementById("bonus");
+		var divpun = document.getElementById("punt");
+		var i1 = Math.floor(Math.random()*5+1);//del 1 al 5, dpendiendo de este num, aparece el botón bonus
+		var i2 = Math.floor(Math.random()*5+1);// del 1 al 5, dependiendo de éste aparece el botón punt
+		//alert(i1+" "+i2);
+		console.log(i1+" "+i2);
+		var cont1 = 0;
+		var cont2 = 0;
+		setTimeout(function(){
+		    var bon = divbon.children[0];
+			bon.classList.remove("esc");
+			bon.classList.add("bot");
+			bon.addEventListener("click", function(){
+			    cont1 += 1;
+				console.log(cont1+" de bonus");
+			});
+			setTimeout(function(){
+			    bon.classList.remove("bot");
+				bon.classList.add("esc");
+				console.log("remove bot, add esc de bonus");
+			}, 3000);
+		}, i1*1000);
+		setTimeout(function(){
+			var pun = divpun.children[0];
+			pun.classList.remove("esc");
+			pun.classList.add("bot");
+			pun.addEventListener("click", function(){
+			    cont2 += 1;
+				console.log(cont2+" de puntaje");
+			});
+			setTimeout(function(){
+			    pun.classList.remove("bot");
+				pun.classList.add("esc");
+				console.log("remove bot, add esc de puntaje");
+			}, 3000);
+		}, i2*1000);
+	</script>
+</html>
