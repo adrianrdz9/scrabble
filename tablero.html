@@ -5,8 +5,13 @@
 		<title></title>
 	</head>
 	<body>
+
 	</body>
 	<script type="text/javascript">
+	//CREAR tabla
+	var body = document.getElementsByTagName("body")[0];
+	var tabla   = document.createElement("table");
+	var tblBody = document.createElement("tbody");
 	function tablero(coordenadaX,coordenadaY,valores,casilla){//Objeto tablero
 		this.coordenadaX = coordenadaX;
 		this.coordenadaY = coordenadaY;
@@ -19,6 +24,7 @@
 
 	for(x=0; x<maxNum; x++){//renglones
 		table[x] = new Array();
+		var renglones = document.createElement("tr");
 		for (y=0; y<maxNum; y++)//columnas
 		{
 			if((x==0 && y==0)|(x==7 && y==0)|(x==14 && y==0)|(x==0 && y==7)|
@@ -50,9 +56,17 @@
 				table[x][y] = new tablero(x, y, "E", "Especial");
 			else
 				table[x][y] = new tablero(x, y, "", "Vacío");
-		console.log(table[x][y]);
+			console.log(table[x][y]);
+			var columnas = document.createElement("td");
+			//var textoCelda = document.createTextNode("celda en la hilera "+i+", columna "+j);
+	        columnas.innerHTML=tablero.casilla;
+			renglones.appendChild(columnas);
 		}
+		 tblBody.appendChild(renglones);
 	}
+	tabla.appendChild(tblBody);
+ 	body.appendChild(tabla);
+  	tabla.setAttribute("border", "2");
 	/*console.log(table[0][0]);//Triple word score
 	console.log(table[1][0]);//Vacío
 	console.log(table[7][3]);//Double letter score
