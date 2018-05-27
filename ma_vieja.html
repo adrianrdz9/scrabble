@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+    </body>
+    <script type="text/javascript">
+    function tablero(coordenadaX,coordenadaY,valores){//Objeto tablero
+        this.coordenadaX = coordenadaX;
+        this.coordenadaY = coordenadaY;
+        this.valores = valores;//Letra en el tablero
+    };
+    var maxNum = 15; //tamaño de la tabla
+    var x, y; //contadores
+    var table = new Array();
+
+    for(x=0; x<maxNum; x++){//renglones
+        table[x] = new Array();
+        for (y=0; y<maxNum; y++)//columnas
+            table[x][y] = new tablero(x, y, "");
+    }
+    </script>
+</html>
