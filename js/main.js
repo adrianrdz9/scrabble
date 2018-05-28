@@ -233,6 +233,7 @@ function ponerPalabra(palabra){
                 }
 
                 table[xj][yj].casilla = letra.toUpperCase();
+                $(canvas).off();
             })
     
             ctx.clearRect(0,0,canvas.width, canvas.height);
@@ -242,6 +243,6 @@ function ponerPalabra(palabra){
     })
 }
 
-ponerPalabra("hola");
+//ponerPalabra("hola");
 
 

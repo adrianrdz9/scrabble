@@ -10,6 +10,19 @@
         canvas{
             border: 1px solid black;
         }
+
+        .esc{
+			    display: none;
+			}
+        .bot{
+            padding: 2%;
+            border: 2px solid #008B8B;
+            background-color: #F0F8FF;
+            color: black;
+            position: absolute;
+            height: 70px;
+            width: 150px;
+        }
     </style>
 </head>
 <body>
@@ -28,10 +41,24 @@
             </div>
         </div>
     </div>
+
+    <div class="bonus">
+        <div id="bonusTiempo">
+		    <input class="esc" type="button" value="+ TIEMPO">
+		</div>
+		<div id="bonusPuntaje">
+		    <input class="esc" type="button" value="+ PUNTAJE">
+		</div>
+    </div>
+
+    
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="./js/temporizador.js"></script>
     <script src="./js/tablero.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/buscar.js"></script>
+    <script src="./js/puntaje.js"></script>
+    <script src="./js/bonus.js"></script>
 </body>
 </html>

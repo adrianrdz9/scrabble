@@ -31,12 +31,12 @@ function iniciarTemporizador(tiempo, elemento, cb = alert){
     document.tiempo = tiempo;
     document.querySelector(elemento).innerHTML = formatearSegundo(document.tiempo);
     document.temporizador = setInterval(function(){
-        document.tiempo--;
-        document.querySelector(elemento).innerHTML = formatearSegundo(document.tiempo);
+        document.tiempo-= 0.1;
+        document.querySelector(elemento).innerHTML = formatearSegundo(Math.ceil(document.tiempo));
         if(document.tiempo <= 0){
             clearInterval(document.temporizador);
             cb("Se acabo el tiempo");
         }    
 
-    }, 1000);
+    }, 100);
 }
