@@ -4,9 +4,9 @@ function buscar(busqueda){
             $.each(datos, function(key, val){
                 if(val.palabra == busqueda)
                     res(key);                
-            })
+            });
 
             res(false);
-        })
-    })
+        });
+    });
 }

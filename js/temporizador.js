@@ -1,5 +1,3 @@
-iniciarTemporizador(10, "h1");
-
 /***************************************************************/
 /*    Dar formato mm:ss                                        */
 /*    Parametros:                                              */ 
