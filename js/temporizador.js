@@ -27,7 +27,7 @@ function formatearSegundo(seg){
 /*    Salida:                                                  */
 /*        Tipo -> undefined                                       */
 /************************************************************* */
-function iniciarTemporizador(tiempo, elemento, cb = console.log){
+function iniciarTemporizador(tiempo, elemento, cb = alert){
     document.tiempo = tiempo;
     document.querySelector(elemento).innerHTML = formatearSegundo(document.tiempo);
     document.temporizador = setInterval(function(){
@@ -35,7 +35,7 @@ function iniciarTemporizador(tiempo, elemento, cb = console.log){
         document.querySelector(elemento).innerHTML = formatearSegundo(document.tiempo);
         if(document.tiempo <= 0){
             clearInterval(document.temporizador);
-            cb("Aqui se puede ejecutar la funcion necesaria de cuando se acaba el tiempo");
+            cb("Se acabo el tiempo");
         }    
 
     }, 1000);
