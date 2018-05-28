@@ -22,40 +22,39 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
     context.fillText(line, x, y);
 }
 
-for (let i = 0; i < 15; i++) {
-    for (let j = 0; j < 15; j++) {
-        bgColor = "rgba(0,0,0,0.13)"
-        txtColor = "black";
-        ctx.save();
-
-        if(table[i][j].valores == "TW"){
-            bgColor = "orange";            
-        }else if(table[i][j].valores == "DL"){
-            bgColor = "teal";
-        }else if(table[i][j].valores == "DW"){
-            bgColor = "pink";
-        }else if(table[i][j].valores == "TL"){
-            bgColor = "blue";
-            txtColor = "white";
-        }else if(table[i][j].valores == "E"){
-            bgColor = "red";
-            txtColor = "white";
-        }else{
+$(document).ready(function(){
+    for (let i = 0; i < 15; i++) {
+        for (let j = 0; j < 15; j++) {
             bgColor = "rgba(0,0,0,0.13)"
+            txtColor = "black";
+            ctx.save();
+    
+            if(table[i][j].valores == "TW"){
+                bgColor = "orange";            
+            }else if(table[i][j].valores == "DL"){
+                bgColor = "teal";
+                txtColor = "white"
+            }else if(table[i][j].valores == "DW"){
+                bgColor = "pink";
+            }else if(table[i][j].valores == "TL"){
+                bgColor = "blue";
+                txtColor = "white";
+            }else if(table[i][j].valores == "E"){
+                bgColor = "red";
+                txtColor = "white";
+            }else{
+                bgColor = "rgba(0,0,0,0.13)"
+            }
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(i*tamCuadro, j*tamCuadro, tamCuadro,tamCuadro);
+            ctx.fillStyle = txtColor;
+            if(table[i][j].valores == "E"){
+                ctx.font = "24px Arial";
+                ctx.fillText("E", (i*tamCuadro)+tamCuadro/4.5, (j*tamCuadro)+tamCuadro/1.5 )
+            }else{
+                wrapText(ctx, table[i][j].casilla, (i*tamCuadro)+5, (j*tamCuadro)+15, tamCuadro-5, 10  )
+            }
+            ctx.restore()
         }
-        ctx.fillStyle = bgColor;
-        ctx.fillRect(i*tamCuadro, j*tamCuadro, tamCuadro,tamCuadro);
-        ctx.fillStyle = txtColor;
-        if(table[i][j].valores == "E"){
-            ctx.font = "24px FontAwesome";
-            ctx.fillText("\uF005", (i*tamCuadro)+tamCuadro/4.5, (j*tamCuadro)+tamCuadro/1.5 )
-        }else{
-            wrapText(ctx, table[i][j].casilla, (i*tamCuadro)+5, (j*tamCuadro)+15, tamCuadro-5, 10  )
-        }
-        ctx.restore()
-    }
-}
-
-
-
-  
+    }   
+})
