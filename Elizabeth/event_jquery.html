@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DOM</title>
+		<meta charset="UTF-8"/>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<style>
+			div{
+				background-color:black;
+				color:white;
+				margin:40px;
+				padding:40px;
+			}
+			h1,h2{
+				text-align:center;
+			}
+		</style>
+	</head>
+	<body id="bd">
+		<div id="hola">
+			<h1>HOLA</h1>
+		</div>
+		<div id="cm">
+			<h2 id='he2'>¿Cómo te llamas?</h2>
+			<h2><input id="np"type="text" name="name"/>
+			<input id="sub" type="submit"/></h2>
+		</div>
+		<div id="ld">
+			<h2>Lindo Día</h2>
+		</div>
+	</body>
+		<script>
+			$("#bd").dblclick(function() //doble click en BODY
+			{
+					$("#bd").attr("style","color:#88FF5B;background-color:#E8BCFF;");
+				},false);
+			window.addEventListener("resize",function() //cambio de tamaño en ventana cambio en BODY
+			{
+					$("#bd").attr("style","color:#78302B;background-color:#CE6B64;");
+				},false);
+			$("#hola").mouseover(function() //cuando pasa el mouse en HOLA
+				{
+					$("#hola").attr("style","color:white;background-color:pink;");
+				},false);
+			$("#hola").mouseout(function() //sale el mouse del campo HOLA
+				{
+					$("#hola").attr("style","color:pink;background-color:white;");
+				},false);
+			$("#hola").click(function() //al dar click en HOLA
+				{
+					$("#hola").attr("style","color:orange;background-color:yellow;");
+				},false);
+			$("#cm").click(function() //al dar click en COMO
+				{
+					$("#cm").attr("style","color:#8238DF;background-color:#DECAA4;");
+				},false);
+			$("#np").keypress(function() // escribir en COMO
+				{
+					$("#cm").attr("style","color:white;background-color:#DE0B09;");
+					$("#he2").text("Me haces cosquillas");
+				},false);
+			$("#np").change(function() // Termina de escribir en COMO
+				{
+					$("#cm").attr("style","color:white;background-color:#DE0B09;");
+					$("#he2").text("Tu nombre es bello, como tú");
+				},false);
+			$("#np").focus(function() //Seleccionar el input
+				{
+					$("#cm").attr("style","color:white;background-color:#FFBF19;");
+				},false);
+			$("#ld").click(function() //Dar click en LINDO
+				{
+					$("#ld").attr("style","color:#FFE8BC;background-color:#9BA5B2;");
+				},false);
+			$("#ld").dblclick(function() //doble click en LINDO
+			{
+					$("#ld").attr("style","color:#B2808C;background-color:#CBDECE;");
+				},false);
+
+		</script>
+</html>
