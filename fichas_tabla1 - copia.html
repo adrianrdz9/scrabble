@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>fichas tabla 1</title>
+		<style>
+		    .esc{
+			    display: none;
+			}
+			.vis{
+			    display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="l1"></button>
+		<button id="l2"></button>
+		<button id="l3"></button>
+		<button id="l4"></button>
+		<button id="l5"></button>
+		<button id="l6"></button>
+		<button id="l7"></button><br/><br/>
+		<!-- <p id="palabra" class="esc"></p> -->
+		<button id="lis" class="esc">Listo!!</button><br/>
+		<!-- <button id="otra" class="esc">Volver a jugar</button> -->
+
+	</body>
+	<script type="text/javascript">
+	//FICHAS
+		var bot1 = document.getElementById("l1");
+		var bot2 = document.getElementById("l2");
+		var bot3 = document.getElementById("l3");
+		var bot4 = document.getElementById("l4");
+		var bot5 = document.getElementById("l5");
+		var bot6 = document.getElementById("l6");
+		var bot7 = document.getElementById("l7");
+		var lis = document.getElementById("lis");
+		
+			var letras = [];/*Esta es una matríz que es asociativa pero tambien indexada, es asociativa por cada columna,
+			e indexada por cada fila. Guarda como un id para cada letra en el índice de la asociativa, guarda la cantidad 
+			del tipo de letras que pueden ser usadas y guarda la letra*/
+			letras["x1"] = [12, "a"];
+			letras["x2"] = [2, "b"];
+			letras["x3"] = [4, "c"];
+			letras["x4"] = [1, "ch"];
+			letras["x5"] = [5, "d"];
+			letras["x6"] = [12, "e"];
+			letras["x7"] = [1, "f"];
+			letras["x8"] = [2, "g"];
+			letras["x9"] = [2, "h"];
+			letras["x10"] = [6, "i"];
+			letras["x11"] = [1, "j"];
+			letras["x12"] = [4, "l"];
+			letras["x13"] = [1, "ll"];
+			letras["x14"] = [2, "m"];
+			letras["x15"] = [5, "n"];
+			letras["x16"] = [1, "ñ"];
+			letras["x17"] = [9, "o"];
+			letras["x18"] = [2, "p"];
+			letras["x19"] = [1, "q"];
+			letras["x20"] = [6, "s"];
+			letras["x21"] = [5, "r"];
+			letras["x22"] = [1, "rr"];
+			letras["x23"] = [4, "t"];
+			letras["x24"] = [5, "u"];
+			letras["x25"] = [1, "v"];
+			letras["x26"] = [1, "x"];
+			letras["x27"] = [1, "y"];
+			letras["x28"] = [1, "z"];
+			
+			/*esta función sirve para poder saber si siguen habiendo letras disponibles para asignar a cada botón de ficha.
+			Regresa la suma de toda la cantidad de letras disponibles, en total son 98*/
+			function calc()
+			{
+			    var qu = 0;
+				for(var cont2=1; cont2<=28; cont2++)
+				{
+					qu += letras["x"+cont2][0];
+				}
+				//console.log(qu);
+				return qu;
+			}
+			
+			/*Este es un arreglo de las fichas*/
+			var fich = [];
+			for(var con=0; con<7; con++)/*aquí le asigna una letra aleatoria a cada botón, son 7 botones (7 fichas)*/
+			{
+			    var ale = Math.floor(Math.random()*28+1);/*Número aleatorio del 1 al 28, (de las 28 letras que se tienen)*/
+				console.log("aleatorio: "+ale);
+				fich[con]=letras["x"+ale][1];/*A la ficha correspondoiente, (una localidad del arreglo), le asigna una letra de acuerdo a la matríz letras*/
+				console.log("fitch["+con+"]: "+fich[con]);
+				letras["x"+ale][0]-=1;/*Disminuye la disponibilidad de la letra correspondiente*/
+				console.log("repeticiones: "+letras["x"+ale][0]);
+				var tb = con+1;/*sirve para darle id a lo de abajo, lo puse porque no me dejaba si lo ponía directamente ahí*/
+				document.getElementById("l"+tb).innerHTML = fich[con];/*Aquí le da el valor de la letra seleccionada aleatoriamente*/
+		    }
+			/*Esta funcion es para que después de darle click a alguno de los botones del fichero,
+			se reemplace esa letra por otra aleatoria que se pueda usar*/
+			function revisar(){
+			    ale = Math.floor(Math.random()*28+1);/*para elegir una letra aleatoria*/
+				console.log("aleatorio: "+ale);
+				var prob;
+				do{
+				    if(letras["x"+ale][0]>0)/*Si la disponibilidad de la letra aleatoria es mayor que cero*/
+					{
+						fich[con]=letras["x"+ale][1];/*Asigna a la localidad correspondiente del array la letra aleatoria*/
+						console.log("fich["+con+"]: "+fich[con]);
+						letras["x"+ale][0]-=1;/*Disminuye en 1 a la disponibilidad de la letra*/
+						console.log("repeticiones: "+letras["x"+ale][0]);
+						tb = con+1;
+				        document.getElementById("l"+tb).innerHTML = fich[con];/*le asigna al botón correspondiente el valor de la letra nueva*/
+						prob = 0;/*para verificar que sí había disponibilidad de la letra aleatoria la letra*/
+					}
+					else
+					{
+					    ale = Math.floor(Math.random()*28+1);/*Si no hubo disponibilidad, toma otro num aleatorio para tomar otra letra que sí tenga disponibiliodad*/
+						console.log("aleatorio else: "+ale);
+						prob = 1;/*Para revisar que no hubo disponibilidad de la letra aleatoria en el if*/
+					}
+				}
+				while(prob==1);/*Mientras no haya disponibilidad de la letra aleatoria*/
+			}
+
+	//CREAR table0, que es la "viejita", y table, que es la que contiene las nuevas letras...
+	var body = document.getElementsByTagName("body")[0];
+	var tabla   = document.createElement("table");
+	var tblBody = document.createElement("tbody");
+	function tablero(coordenadaX,coordenadaY,valores,casilla,idcel){//Objeto tablero
+		this.coordenadaX = coordenadaX;
+		this.coordenadaY = coordenadaY;
+		this.valores = valores;//Letra en el tablero
+		this.casilla = casilla;//Casilla especial
+		this.idcel = idcel;//Id de la celda que tiene
+	};
+	var maxNum = 15; //tamaño de la tabla
+	var x, y; //contadores
+	var table = new Array();
+	var table0 = new Array();
+	var cont3 = 0;
+	for(x=0; x<maxNum; x++){//renglones
+		table[x] = new Array();
+		table0[x] = new Array();
+		var renglones = document.createElement("tr");
+		for (y=0; y<maxNum; y++)//columnas
+		{
+			if((x==0 && y==0)|(x==7 && y==0)|(x==14 && y==0)|(x==0 && y==7)|
+				(x==14 && y==7)|(x==0 && y==14)|(x==7 && y==14)|(x==14 && y==14))
+			{
+				table[x][y] = new tablero(x, y, "TW", "Triple word score", "cel"+cont3);
+				table0[x][y] = new tablero(x, y, "TW", "Triple word score", "cel"+cont3);
+			}
+			else
+
+			if((x==3 && y==0)|(x==11 && y==0)|(x==6 && y==2)|(x==8 && y==2)|
+				(x==0 && y==3)|(x==7 && y==3)|(x==14 && y==3)|(x==2 && y==6)|
+				(x==6 && y==6)|(x==8 && y==6)|(x==12 && y==6)|(x==3 && y==7)|
+				(x==11 && y==7)|(x==2 && y==8)|(x==8 && y==8)|(x==6 && y==8)|
+				(x==12 && y==8)|(x==0 && y==11)|(x==7 && y==11)|(x==14 && y==11)|
+				(x==6 && y==12)|(x==8 && y==12)|(x==3 && y==14)|(x==11 && y==14))
+			{
+				table[x][y] = new tablero(x, y, "DL", "Double letter score", "cel"+cont3);
+				table0[x][y] = new tablero(x, y, "DL", "Double letter score", "cel"+cont3);
+			}
+			else
+			//for(c=1; c<=4; c++)
+				if((x==1 && y==1)|(x==2 && y==2)|(x==3 && y==3)|(x==4 && y==4)|
+					(x==13 && y==1)|(x==12 && y==2)|(x==11 && y==3)|(x==10 && y==4)|
+					(x==1 && y==13)|(x==2 && y==12)|(x==3 && y==11)|(x==4 && y==10)|
+					(x==10 && y==10)|(x==11 && y==11)|(x==12 && y==12)|(x==13 && y==13))
+				{
+					table[x][y] = new tablero(x, y, "DW", "Double word score", "cel"+cont3);
+					table0[x][y] = new tablero(x, y, "DW", "Double word score", "cel"+cont3);
+				}
+			else
+			if((x==5 && y==1)|(x==9 && y==1)|(x==1 && y==5)|(x==5 && y==5)|
+				(x==9 && y==5)|(x==13 && y==5)|(x==1 && y==9)|(x==5 && y==9)|
+					(x==9 && y==9)|(x==13 && y==9)|(x==5 && y==13)|(x==9 && y==13))
+				{
+					table[x][y] = new tablero(x, y, "TL", "Triple letter score", "cel"+cont3);
+					table0[x][y] = new tablero(x, y, "TL", "Triple letter score", "cel"+cont3);
+				}
+			else
+			if((x==7 && y==7))
+			{
+				table[x][y] = new tablero(x, y, "E", "Especial", "cel"+cont3);
+				table0[x][y] = new tablero(x, y, "E", "Especial", "cel"+cont3);
+			}
+			else
+			{
+				table[x][y] = new tablero(x, y, "", "Vacío", "cel"+cont3);
+				table0[x][y] = new tablero(x, y, "", "Vacío", "cel"+cont3);
+			}
+			console.log(table[x][y]);
+			var columnas = document.createElement("td");
+			//var textoCelda = document.createTextNode("celda en la hilera "+i+", columna "+j);
+	        columnas.innerHTML=table[x][y].casilla;
+			columnas.setAttribute("id", "cel"+cont3);
+			console.log("cel"+cont3);
+			renglones.appendChild(columnas);
+			cont3++;
+		}
+		 tblBody.appendChild(renglones);
+	}
+	tabla.appendChild(tblBody);
+ 	body.appendChild(tabla);
+  	tabla.setAttribute("border", "2");
+	/*console.log(table[0][0]);//Triple word score
+	console.log(table[1][0]);//Vacío
+	console.log(table[7][3]);//Double letter score
+	console.log(table[3][3]);//Double word score
+	console.log(table[13][9]);//Triple letter score
+	console.log(table[7][7]);//Especial*/
+	
+	
+	var celdas = new Array();/*se crea un nuevo arreglo asociativo, que contiene el elemento html de cada celda, 
+	y también contiene un "indicador", que es 0, para saber si ya tiene alguna ficha esa letra*/
+	for(var cont4=0; cont4<=224; cont4++)
+	{
+	    celdas["cel"+cont4] = [document.getElementById("cel"+cont4), 0];
+	}
+
+	var letfi;
+	var idcelda;
+
+	//FICHAS
+			bot1.addEventListener("click", function(){/*En caso de click*/
+				console.log(calc());
+				if(calc()!=0)/*En caso de que todavía haya alguna letra disponible... Calc es la función que permite obtener ese dato*/
+				{
+					letfi = bot1.innerHTML;
+					con = 0;
+					/*if(lis.className!="vis")
+					    lis.className = "vis";*/
+					/*tampal = pala.innerHTML.length;
+					console.log(tampal);*/
+				}
+				else
+				{
+				    letfi = bot1.innerHTML;
+					bot1.className = "esc";
+				}
+			});
+			bot2.addEventListener("click", function(){
+			    console.log(calc());
+				if(calc()!=0)
+				{
+					letfi = bot2.innerHTML;
+					con = 1;
+					/*if(lis.className!="vis")
+					    lis.className = "vis";*/
+				}
+				else
+				{
+				    letfi = bot2.innerHTML;
+					bot2.className = "esc";
+				}
+			});
+			bot3.addEventListener("click", function(){
+			    console.log(calc());
+				if(calc()!=0)
+				{
+					letfi = bot3.innerHTML;
+					con = 2;
+					/*if(lis.className!="vis")
+					    lis.className = "vis";*/
+				}
+				else
+				{
+				    letfi = bot3.innerHTML;
+					bot3.className = "esc";
+				}
+			});
+			bot4.addEventListener("click", function(){
+			    console.log(calc());
+				if(calc()!=0)
+				{
+					letfi = bot4.innerHTML;
+					con = 3;
+					/*if(lis.className!="vis")
+					    lis.className = "vis";*/
+				}
+				else
+				{
+				    letfi = bot3.innerHTML;
+					bot4.className = "esc";
+				}
+			});
+			bot5.addEventListener("click", function(){
+			    console.log(calc());
+				if(calc()!=0)
+				{
+					letfi = bot5.innerHTML;
+					con = 4;
+					/*if(lis.className!="vis")
+					    lis.className = "vis";*/
+				}
+				else
+				{
+				    letfi = bot5.innerHTML;
+					bot5.className = "esc";
+				}
+			});
+			bot6.addEventListener("click", function(){
+			    console.log(calc());
+				if(calc()!=0)
+				{
+					letfi = bot6.innerHTML;
+					con = 5;
+					/*if(lis.className!="vis")
+					    lis.className = "vis";*/
+				}
+				else
+				{
+				    letfi = bot6.innerHTML;
+					bot6.className = "esc";
+				}
+			});
+			bot7.addEventListener("click", function(){
+			    console.log(calc());
+				if(calc()!=0)
+				{
+					letfi = bot7.innerHTML;
+					con = 6;
+					/*if(lis.className!="vis")
+					    lis.className = "vis";*/
+				}
+				else
+				{
+				    letfi = bot7.innerHTML;
+					bot7.className = "esc";
+				}
+			});
+
+			//Pasé al evento de lis hasta abajo...
+			/*lis.addEventListener("click", function(){
+				bot1.className = "esc";
+				bot2.className = "esc";
+				bot3.className = "esc";
+				bot4.className = "esc";
+				bot5.className = "esc";
+				bot6.className = "esc";
+				bot7.className = "esc";
+				//otra.className = "vis";
+			});*/
+	
+	var ejy;
+	var ejx;
+	
+	/*revisar2 es la la función que se usa para asignar las fichas a las tabla*/
+	function revisar2()
+	{
+		idcelda = table[ejy][ejx].idcel;/*toma del objeto de una celda en específico el idcel, que es el "id de celda"*/
+		if(celdas[idcelda][1]==0 && letfi!="NO" && letfi!=undefined){/*para cuando la celda ya tiene una ficha, o cuando se termió de hacer la palabra, o se debe tomar otra ficha, o para el caso de que no se haya escogido ficha es undefined.*/
+			console.log("click en celda: "+table[ejy][ejx].idcel);
+			table[ejy][ejx].valores = letfi;/*letfi es la letra de la ficha escogida, se le asigna al atributo valores del objeto de tal celda*/
+			console.log("valor que se escogio: "+table[ejy][ejx].valores);
+			console.log("id celda que se escogio: "+idcelda);
+			//indice = 0;
+			celdas[idcelda][0].innerHTML = table[ejy][ejx].valores;/*Se le asigna a la celda de la tabla el valor de la ficha*/
+			console.log("valor de la celda: "+celdas[idcelda][0].innerHTML);
+			celdas[idcelda][1] = 1;/*Se le asigna una a esa parte de la matríz para especificar que ya tiene una ficha*/
+			revisar();/*función para asignar una nueva letra a la ficha*/
+			letfi="NO";/*Se le asigna no para que no vuelva a realizar esta funcion hasta que de clic a otra ficha*/
+			if(lis.className!="vis")/*Lis es el botón que realiza muchas cosas, mas explicado abajo..., lo hjace visible...*/
+			    lis.className = "vis";
+		}
+		else{
+		    console.log("no se puede poner ahí tu ficha, esa celda ya tiene una ficha. O ya terminaste de hacer tu palabra. O debes de tomar otra ficha.");
+		}
+	}
+	/*Asignación de eventos a cada celda..., no pude encontras una forma mas rápida y funcional*/
+	cel0.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 0;
+		revisar2();
+		/*cel0.innerHTML = table[0][0].valores;
+		console.log("valor de celda: "+cel0.innerHTML);*/
+		//rev2 = 1;
+		/*table[0][0].valores = document.getElementById(idcelda).innerHTML;
+		console.log(table[0][0].valores);*/
+	});
+	
+	cel1.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 1;
+		revisar2();
+	});
+	cel2.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 2;
+		revisar2();
+	});
+	cel3.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 3;
+		revisar2();
+	});
+	cel4.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 4;
+		revisar2();
+	});
+	cel5.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 5;
+		revisar2();
+	});
+	cel6.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 6;
+		revisar2();
+	});
+	cel7.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 7;
+		revisar2();
+	});
+	cel8.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 8;
+		revisar2();
+	});
+	cel9.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 9;
+		revisar2();
+	});
+	cel10.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 10;
+		revisar2();
+	});
+	cel11.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 11;
+		revisar2();
+	});
+	cel12.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 12;
+		revisar2();
+	});
+	cel13.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 13;
+		revisar2();
+	});
+	cel14.addEventListener("click", function(){
+	    ejy = 0;
+		ejx = 14;
+		revisar2();
+	});
+	cel15.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 0;
+		revisar2();
+	});
+	cel16.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 1;
+		revisar2();
+	});
+	cel17.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 2;
+		revisar2();
+	});
+	cel18.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 3;
+		revisar2();
+	});
+	cel19.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 4;
+		revisar2();
+	});
+	cel20.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 5;
+		revisar2();
+	});
+	cel21.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 6;
+		revisar2();
+	});
+	cel22.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 7;
+		revisar2();
+	});
+	cel23.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 8;
+		revisar2();
+	});
+	cel24.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 9;
+		revisar2();
+	});cel25.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 10;
+		revisar2();
+	});
+	cel26.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 11;
+		revisar2();
+	});
+	cel27.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 12;
+		revisar2();
+	});
+	cel28.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 13;
+		revisar2();
+	});
+	cel29.addEventListener("click", function(){
+	    ejy = 1;
+		ejx = 14;
+		revisar2();
+	});
+	cel30.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 0;
+		revisar2();
+	});
+	cel31.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 1;
+		revisar2();
+	});
+	cel32.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 2;
+		revisar2();
+	});
+	cel33.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 3;
+		revisar2();
+	});
+	cel34.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 4;
+		revisar2();
+	});
+	cel35.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 5;
+		revisar2();
+	});
+	cel36.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 6;
+		revisar2();
+	});
+	cel37.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 7;
+		revisar2();
+	});
+	cel38.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 8;
+		revisar2();
+	});
+	cel39.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 9;
+		revisar2();
+	});
+	cel40.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 10;
+		revisar2();
+	});
+	cel41.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 11;
+		revisar2();
+	});
+	cel42.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 12;
+		revisar2();
+	});
+	cel43.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 13;
+		revisar2();
+	});
+	cel44.addEventListener("click", function(){
+	    ejy = 2;
+		ejx = 14;
+		revisar2();
+	});
+	cel45.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 0;
+		revisar2();
+	});
+	cel46.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 1;
+		revisar2();
+	});
+	cel47.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 2;
+		revisar2();
+	});
+	cel48.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 3;
+		revisar2();
+	});
+	cel49.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 4;
+		revisar2();
+	});
+	cel50.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 5;
+		revisar2();
+	});
+	cel51.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 6;
+		revisar2();
+	});
+	cel52.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 7;
+		revisar2();
+	});
+	cel53.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 8;
+		revisar2();
+	});
+	cel54.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 9;
+		revisar2();
+	});
+	cel55.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 10;
+		revisar2();
+	});
+	cel56.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 11;
+		revisar2();
+	});
+	cel57.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 12;
+		revisar2();
+	});
+	cel58.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 13;
+		revisar2();
+	});
+	cel59.addEventListener("click", function(){
+	    ejy = 3;
+		ejx = 14;
+		revisar2();
+	});
+	cel60.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 0;
+		revisar2();
+	});
+	cel61.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 1;
+		revisar2();
+	});
+	cel62.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 2;
+		revisar2();
+	});
+	cel63.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 3;
+		revisar2();
+	});
+	cel64.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 4;
+		revisar2();
+	});
+	cel65.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 5;
+		revisar2();
+	});
+	cel66.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 6;
+		revisar2();
+	});
+	cel67.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 7;
+		revisar2();
+	});
+	cel68.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 8;
+		revisar2();
+	});
+	cel69.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 9;
+		revisar2();
+	});
+	cel70.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 10;
+		revisar2();
+	});
+	cel71.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 11;
+		revisar2();
+	});
+	cel72.addEventListener("click", function(){
+	    ejy = 4
+		ejx = 12;
+		revisar2();
+	});
+	cel73.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 13;
+		revisar2();
+	});
+	cel74.addEventListener("click", function(){
+	    ejy = 4;
+		ejx = 14;
+		revisar2();
+	});
+	cel75.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 0;
+		revisar2();
+	});
+	cel76.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 1;
+		revisar2();
+	});
+	cel77.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 2;
+		revisar2();
+	});
+	cel78.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 3;
+		revisar2();
+	});
+	cel79.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 4;
+		revisar2();
+	});
+	cel80.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 5;
+		revisar2();
+	});
+	cel81.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 6;
+		revisar2();
+	});
+	cel82.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 7;
+		revisar2();
+	});
+	cel83.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 8;
+		revisar2();
+	});
+	cel84.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 9;
+		revisar2();
+	});
+	cel85.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 10;
+		revisar2();
+	});
+	cel86.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 11;
+		revisar2();
+	});
+	cel87.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 12;
+		revisar2();
+	});
+	cel88.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 13;
+		revisar2();
+	});
+	cel89.addEventListener("click", function(){
+	    ejy = 5;
+		ejx = 14;
+		revisar2();
+	});
+	cel90.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 0;
+		revisar2();
+	});
+	cel91.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 1;
+		revisar2();
+	});
+	cel92.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 2;
+		revisar2();
+	});
+	cel93.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 3;
+		revisar2();
+	});
+	cel94.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 4;
+		revisar2();
+	});
+	cel95.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 5;
+		revisar2();
+	});
+	cel96.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 6;
+		revisar2();
+	});
+	cel97.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 7;
+		revisar2();
+	});
+	cel98.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 8;
+		revisar2();
+	});
+	cel99.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 9;
+		revisar2();
+	});
+	cel100.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 10;
+		revisar2();
+	});
+	cel101.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 11;
+		revisar2();
+	});
+	cel102.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 12;
+		revisar2();
+	});
+	cel103.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 13;
+		revisar2();
+	});
+	cel104.addEventListener("click", function(){
+	    ejy = 6;
+		ejx = 14;
+		revisar2();
+	});
+	cel105.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 0;
+		revisar2();
+	});
+	cel106.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 1;
+		revisar2();
+	});
+	cel107.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 2;
+		revisar2();
+	});
+	cel108.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 3;
+		revisar2();
+	});
+	cel109.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 4;
+		revisar2();
+	});
+	cel110.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 5;
+		revisar2();
+	});
+	cel111.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 6;
+		revisar2();
+	});
+	cel112.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 7;
+		revisar2();
+	});
+	cel113.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 8;
+		revisar2();
+	});
+	cel114.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 9;
+		revisar2();
+	});
+	cel115.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 10;
+		revisar2();
+	});
+	cel116.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 11;
+		revisar2();
+	});
+	cel117.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 12;
+		revisar2();
+	});
+	cel118.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 13;
+		revisar2();
+	});
+	cel119.addEventListener("click", function(){
+	    ejy = 7;
+		ejx = 14;
+		revisar2();
+	});
+	cel120.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 0;
+		revisar2();
+	});
+	cel121.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 1;
+		revisar2();
+	});
+	cel122.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 2;
+		revisar2();
+	});
+	cel123.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 3;
+		revisar2();
+	});cel124.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 4;
+		revisar2();
+	});
+	cel125.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 5;
+		revisar2();
+	});
+	cel126.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 6;
+		revisar2();
+	});
+	cel127.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 7;
+		revisar2();
+	});
+	cel128.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 8;
+		revisar2();
+	});
+	cel129.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 9;
+		revisar2();
+	});
+	cel130.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 10;
+		revisar2();
+	});
+	cel131.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 11;
+		revisar2();
+	});
+	cel132.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 12;
+		revisar2();
+	});
+	cel133.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 13;
+		revisar2();
+	});
+	cel134.addEventListener("click", function(){
+	    ejy = 8;
+		ejx = 14;
+		revisar2();
+	});
+	cel135.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 0;
+		revisar2();
+	});
+	cel136.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 1;
+		revisar2();
+	});
+	cel137.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 2;
+		revisar2();
+	});
+	cel138.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 3;
+		revisar2();
+	});
+	cel139.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 4;
+		revisar2();
+	});
+	cel140.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 5;
+		revisar2();
+	});
+	cel141.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 6;
+		revisar2();
+	});
+	cel142.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 7;
+		revisar2();
+	});
+	cel143.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 8;
+		revisar2();
+	});
+	cel144.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 9;
+		revisar2();
+	});
+	cel145.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 10;
+		revisar2();
+	});
+	cel146.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 11;
+		revisar2();
+	});
+	cel147.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 12;
+		revisar2();
+	});
+	cel148.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 13;
+		revisar2();
+	});cel149.addEventListener("click", function(){
+	    ejy = 9;
+		ejx = 14;
+		revisar2();
+	});
+	cel150.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 0;
+		revisar2();
+	});
+	cel151.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 1;
+		revisar2();
+	});
+	cel152.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 2;
+		revisar2();
+	});
+	cel153.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 3;
+		revisar2();
+	});
+	cel154.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 4;
+		revisar2();
+	});
+	cel155.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 5;
+		revisar2();
+	});
+	cel156.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 6;
+		revisar2();
+	});
+	cel157.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 7;
+		revisar2();
+	});
+	cel158.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 8;
+		revisar2();
+	});
+	cel159.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 9;
+		revisar2();
+	});
+	cel160.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 10;
+		revisar2();
+	});
+	cel161.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 11;
+		revisar2();
+	});
+	cel162.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 12;
+		revisar2();
+	});
+	cel163.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 13;
+		revisar2();
+	});
+	cel164.addEventListener("click", function(){
+	    ejy = 10;
+		ejx = 14;
+		revisar2();
+	});
+	cel165.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 0;
+		revisar2();
+	});
+	cel166.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 1;
+		revisar2();
+	});
+	cel167.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 2;
+		revisar2();
+	});
+	cel168.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 3;
+		revisar2();
+	});
+	cel169.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 4;
+		revisar2();
+	});
+	cel170.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 5;
+		revisar2();
+	});
+	cel171.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 6;
+		revisar2();
+	});
+	cel172.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 7;
+		revisar2();
+	});
+	cel173.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 8;
+		revisar2();
+	});
+	cel174.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 9;
+		revisar2();
+	});
+	cel175.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 10;
+		revisar2();
+	});
+	cel176.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 11;
+		revisar2();
+	});
+	cel177.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 12;
+		revisar2();
+	});
+	cel178.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 13;
+		revisar2();
+	});
+	cel179.addEventListener("click", function(){
+	    ejy = 11;
+		ejx = 14;
+		revisar2();
+	});
+	cel180.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 0;
+		revisar2();
+	});
+	cel181.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 1;
+		revisar2();
+	});
+	cel182.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 2;
+		revisar2();
+	});
+	cel183.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 3;
+		revisar2();
+	});
+	cel184.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 4;
+		revisar2();
+	});
+	cel185.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 5;
+		revisar2();
+	});
+	cel186.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 6;
+		revisar2();
+	});
+	cel187.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 7;
+		revisar2();
+	});
+	cel188.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 8;
+		revisar2();
+	});
+	cel189.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 9;
+		revisar2();
+	});
+    cel190.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 10;
+		revisar2();
+	});
+	cel191.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 11;
+		revisar2();
+	});
+	cel192.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 12;
+		revisar2();
+	});
+	cel193.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 13;
+		revisar2();
+	});
+	cel194.addEventListener("click", function(){
+	    ejy = 12;
+		ejx = 14;
+		revisar2();
+	});
+	cel195.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 0;
+		revisar2();
+	});
+	cel196.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 1;
+		revisar2();
+	});
+	cel197.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 12;
+		revisar2();
+	});
+	cel198.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 3;
+		revisar2();
+	});
+	cel199.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 4;
+		revisar2();
+	});
+	cel200.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 5;
+		revisar2();
+	});
+	cel201.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 6;
+		revisar2();
+	});
+	cel202.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 7;
+		revisar2();
+	});
+	cel203.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 8;
+		revisar2();
+	});
+	cel204.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 9;
+		revisar2();
+	});
+	cel205.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 10;
+		revisar2();
+	});
+	cel206.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 11;
+		revisar2();
+	});
+	cel207.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 12;
+		revisar2();
+	});
+	cel208.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 13;
+		revisar2();
+	});
+	cel209.addEventListener("click", function(){
+	    ejy = 13;
+		ejx = 14;
+		revisar2();
+	});
+	cel210.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 0;
+		revisar2();
+	});
+	cel211.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 1;
+		revisar2();
+	});
+	cel212.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 2;
+		revisar2();
+	});
+	cel213.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 3;
+		revisar2();
+	});
+	cel214.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 4;
+		revisar2();
+	});
+	cel215.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 5;
+		revisar2();
+	});
+	cel216.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 6;
+		revisar2();
+	});
+	cel217.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 7;
+		revisar2();
+	});
+	cel218.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 8;
+		revisar2();
+	});
+	cel219.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 9;
+		revisar2();
+	});
+	cel220.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 10;
+		revisar2();
+	});
+	cel221.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 11;
+		revisar2();
+	});
+	cel222.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 12;
+		revisar2();
+	});
+	cel223.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 13;
+		revisar2();
+	});
+	cel224.addEventListener("click", function(){
+	    ejy = 14;
+		ejx = 14;
+		revisar2();
+	});
+	
+	var cprim = new Array();//primera coordenada de la palabra nueva
+    var cult = new Array();//ultima coordenada de la palabra nueva
+	var veri1 = 0;
+	var cont5;
+	var cont6;
+	var pabusc;
+	var arrp = new Array();
+	//var veri2 = 0;
+	
+	
+	lis.addEventListener("click", function(){
+		bot1.className = "esc";/*desaparece a todos los botones (fichas)*/
+		bot2.className = "esc";
+		bot3.className = "esc";
+		bot4.className = "esc";
+		bot5.className = "esc";
+		bot6.className = "esc";
+		bot7.className = "esc";
+		letfi="NO";
+		//console.log(table0[6][7].valores);
+		//console.log(table[6][7].valores);
+		for(cont5=0; cont5<=14; cont5++)
+		{
+			for(cont6=0; cont6<=14; cont6++)
+			{
+			    var valor1 = table0[cont5][cont6].valores;
+				var valor2 = table[cont5][cont6].valores;
+				//console.log(valor1+" "+valor2);
+				if(valor1!=valor2 && veri1==0)/*para encontrar los valoes nuevos respecto a la matriz viejita... en esta parte se asignan coordenadas a la primera y última, para el caso de uqe la palabra sea de solo 1 letra*/
+				{
+					cprim = [cont5, cont6];
+					cult = [cont5, cont6];
+					veri1 = 1;
+					console.log("encontró una en: "+cont5+" "+cont6);
+				}
+				else
+				{
+					if(valor1!=valor2 && veri1==1)/*Pasa por aquí respecto a si veri1 es diferente de cero, y aquí pasa cuando la palabra consta de m´sa de dos letras, y se recoge la última coordenada de la última letra ingresada*/
+					{
+						cult = [cont5, cont6];
+						console.log("encontró una en: "+cont5+" "+cont6);
+					}
+				}
+			}
+		}
+		if(cprim[0]==cult[0] && cprim[1]==cult[1])/*LAs coordenadas son las mismas, quiere decir que las palabra es de una letra, devuelve la palabra en pabusc*/
+		{
+		    //console.log("es una sola letra");
+			pabusc = table[cprim[0]][cprim[1]].valores;
+			console.log(pabusc);
+		}
+		if(cprim[0]<cult[0] && cprim[1]==cult[1]){/*Para cuando la palabra nueva tiene una orientación vertical*/
+		    console.log("Es vertical");
+			//console.log(cprim);
+			while(cprim[0]>0 && table[cprim[0]][cprim[1]].valores!="TW" && table[cprim[0]][cprim[1]].valores!="DL" && 
+			table[cprim[0]][cprim[1]].valores!="DW" && table[cprim[0]][cprim[1]].valores!="TL" && table[cprim[0]][cprim[1]].valores!="E" && 
+			table[cprim[0]][cprim[1]].valores!="")
+			{
+				cprim[0]-=1;
+				console.log(cprim[0]);
+			}
+			if(table[cprim[0]][cprim[1]].valores=="TW" || table[cprim[0]][cprim[1]].valores=="DL" || 
+			table[cprim[0]][cprim[1]].valores=="DW" || table[cprim[0]][cprim[1]].valores=="TL" || table[cprim[0]][cprim[1]].valores=="E" || 
+			table[cprim[0]][cprim[1]].valores==""){
+				cprim[0]+=1;
+				console.log(cprim[0]);
+			}
+			
+			while(cult[0]<14 && table[cult[0]][cult[1]].valores!="TW" && table[cult[0]][cult[1]].valores!="DL" && 
+			table[cult[0]][cult[1]].valores!="DW" && table[cult[0]][cult[1]].valores!="TL" && table[cult[0]][cult[1]].valores!="E" && 
+			table[cult[0]][cult[1]].valores!="")
+			{
+				cult[0]+=1;
+				console.log(cult[0]);
+			}
+			if(table[cult[0]][cult[1]].valores=="TW" || table[cult[0]][cult[1]].valores=="DL" || 
+			table[cult[0]][cult[1]].valores=="DW" || table[cult[0]][cult[1]].valores=="TL" || table[cult[0]][cult[1]].valores=="E" || 
+			table[cult[0]][cult[1]].valores==""){
+				cult[0]-=1;
+				console.log(cult[0]);
+			}
+			
+			for(var cont7=cprim[0]; cont7<=cult[0]; cont7++)
+			{
+				arrp.push(table[cont7][cprim[1]].valores);
+			}
+			//alert(arrp);
+			pabusc=arrp.join("");/*Devuelve la cadena de la palabra en pabusc, pabusc siempre va a ser la palabra que regrese en todas las orientaciones de la palabra*/
+			console.log(pabusc);
+			//alert(pabusc);
+		}
+		else
+		if(cprim[0]==cult[0] && cprim[1]<cult[1]){/*Para cuando es horizontal*/
+		    console.log("Es horizontal");
+			while(cprim[1]>0 && table[cprim[0]][cprim[1]].valores!="TW" && table[cprim[0]][cprim[1]].valores!="DL" && 
+			table[cprim[0]][cprim[1]].valores!="DW" && table[cprim[0]][cprim[1]].valores!="TL" && table[cprim[0]][cprim[1]].valores!="E" && 
+			table[cprim[0]][cprim[1]].valores!="")
+			{
+				cprim[1]-=1;
+				console.log(cprim[1]);
+			}
+			if(table[cprim[0]][cprim[1]].valores=="TW" || table[cprim[0]][cprim[1]].valores=="DL" || 
+			table[cprim[0]][cprim[1]].valores=="DW" || table[cprim[0]][cprim[1]].valores=="TL" || table[cprim[0]][cprim[1]].valores=="E" || 
+			table[cprim[0]][cprim[1]].valores==""){
+				cprim[1]+=1;
+				console.log(cprim[1]);
+			}
+			
+			while(cult[1]<14 && table[cult[0]][cult[1]].valores!="TW" && table[cult[0]][cult[1]].valores!="DL" && 
+			table[cult[0]][cult[1]].valores!="DW" && table[cult[0]][cult[1]].valores!="TL" && table[cult[0]][cult[1]].valores!="E" && 
+			table[cult[0]][cult[1]].valores!="")
+			{
+				cult[1]+=1;
+				console.log(cult[1]);
+			}
+			if(table[cult[0]][cult[1]].valores=="TW" || table[cult[0]][cult[1]].valores=="DL" || 
+			table[cult[0]][cult[1]].valores=="DW" || table[cult[0]][cult[1]].valores=="TL" || table[cult[0]][cult[1]].valores=="E" || 
+			table[cult[0]][cult[1]].valores==""){
+				cult[1]-=1;
+				console.log(cult[1]);
+			}
+			for(var cont7=cprim[1]; cont7<=cult[1]; cont7++)
+			{
+				arrp.push(table[cprim[0]][cont7].valores);
+			}
+			//alert(arrp);
+			pabusc=arrp.join("");
+			console.log(pabusc);
+			//alert(pabusc);
+		}
+		else
+		if(cprim[0]<cult[0] && cprim[1]>cult[1]){/*Cuando es diagonal positiva*/
+		    console.log("Es diagonal positiva");
+			while(cprim[0]>0 && cprim[1]<14 && table[cprim[0]][cprim[1]].valores!="TW" && table[cprim[0]][cprim[1]].valores!="DL" && 
+			table[cprim[0]][cprim[1]].valores!="DW" && table[cprim[0]][cprim[1]].valores!="TL" && table[cprim[0]][cprim[1]].valores!="E" && 
+			table[cprim[0]][cprim[1]].valores!="")
+			{
+				cprim[0]-=1;
+				cprim[1]+=1;
+				console.log(cprim[0]+" "+cprim[1]);
+			}
+			if(table[cprim[0]][cprim[1]].valores=="TW" || table[cprim[0]][cprim[1]].valores=="DL" || 
+			table[cprim[0]][cprim[1]].valores=="DW" || table[cprim[0]][cprim[1]].valores=="TL" || table[cprim[0]][cprim[1]].valores=="E" || 
+			table[cprim[0]][cprim[1]].valores==""){
+				cprim[0]+=1;
+				cprim[1]-=1;
+				console.log(cprim[0]+" "+cprim[1]);
+			}
+			
+			while(cult[0]<14 && cult[1]>0 && table[cult[0]][cult[1]].valores!="TW" && table[cult[0]][cult[1]].valores!="DL" && 
+			table[cult[0]][cult[1]].valores!="DW" && table[cult[0]][cult[1]].valores!="TL" && table[cult[0]][cult[1]].valores!="E" && 
+			table[cult[0]][cult[1]].valores!="")
+			{
+				cult[0]+=1;
+				cult[1]-=1;
+				console.log(cult[0]+" "+cult[1]);
+			}
+			if(table[cult[0]][cult[1]].valores=="TW" || table[cult[0]][cult[1]].valores=="DL" || 
+			table[cult[0]][cult[1]].valores=="DW" || table[cult[0]][cult[1]].valores=="TL" || table[cult[0]][cult[1]].valores=="E" || 
+			table[cult[0]][cult[1]].valores==""){
+				cult[0]-=1;
+				cult[1]+=1;
+				console.log(cult[0]+" "+cult[1]);
+			}
+			var cont8=cprim[0];
+			for(var cont7=cprim[1]; cont7>=cult[1]; cont7--)
+			{
+				arrp.push(table[cont8][cont7].valores);
+				cont8+=1;
+			}
+			//alert(arrp);
+			pabusc=arrp.join("");
+			console.log(pabusc);
+			//alert(pabusc);
+		}
+		else
+		if(cprim[0]<cult[0] && cprim[1]<cult[1]){/*Cuando es diagonal negativa*/
+		    console.log("Es diagonal negativa");
+			while(cprim[0]>0 && cprim[1]>0 && table[cprim[0]][cprim[1]].valores!="TW" && table[cprim[0]][cprim[1]].valores!="DL" && 
+			table[cprim[0]][cprim[1]].valores!="DW" && table[cprim[0]][cprim[1]].valores!="TL" && table[cprim[0]][cprim[1]].valores!="E" && 
+			table[cprim[0]][cprim[1]].valores!="")
+			{
+				cprim[0]-=1;
+				cprim[1]-=1;
+				console.log(cprim[0]+" "+cprim[1]);
+			}
+			if(table[cprim[0]][cprim[1]].valores=="TW" || table[cprim[0]][cprim[1]].valores=="DL" || 
+			table[cprim[0]][cprim[1]].valores=="DW" || table[cprim[0]][cprim[1]].valores=="TL" || table[cprim[0]][cprim[1]].valores=="E" || 
+			table[cprim[0]][cprim[1]].valores==""){
+				cprim[0]+=1;
+				cprim[1]+=1;
+				console.log(cprim[0]+" "+cprim[1]);
+			}
+			
+			while(cult[0]<14 && cult[1]<14 && table[cult[0]][cult[1]].valores!="TW" && table[cult[0]][cult[1]].valores!="DL" && 
+			table[cult[0]][cult[1]].valores!="DW" && table[cult[0]][cult[1]].valores!="TL" && table[cult[0]][cult[1]].valores!="E" && 
+			table[cult[0]][cult[1]].valores!="")
+			{
+				cult[0]+=1;
+				cult[1]+=1;
+				console.log(cult[0]+" "+cult[1]);
+			}
+			if(table[cult[0]][cult[1]].valores=="TW" || table[cult[0]][cult[1]].valores=="DL" || 
+			table[cult[0]][cult[1]].valores=="DW" || table[cult[0]][cult[1]].valores=="TL" || table[cult[0]][cult[1]].valores=="E" || 
+			table[cult[0]][cult[1]].valores==""){
+				cult[0]-=1;
+				cult[1]-=1;
+				console.log(cult[0]+" "+cult[1]);
+			}
+			var cont8=cprim[0];
+			for(var cont7=cprim[1]; cont7<=cult[1]; cont7++)
+			{
+				arrp.push(table[cont8][cont7].valores);
+				cont8+=1;
+			}
+			//alert(arrp);
+			pabusc=arrp.join("");
+			console.log(pabusc);
+			//alert(pabusc);
+		}
+		//else/*En esta parte no estoy seguro que si sea lo que deba pasar*/
+		    //console.log("Aquí iría lo mismo que en el caso de que no exista la palabra en el json");
+		
+	});
+	
+	
+	</script>
+</html>
