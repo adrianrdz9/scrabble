@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <title>Actividad13</title>
+            <meta charset='UTF-8'/>
+    </head>
+    <body>
+    
+    </body>
+    <script type='text/javascript'>
+        /*//No funcionó porque aquí solo puede pasar 1 por return....
+		//var a=0;
+		//var c=0;
+		
+		let prom = new Promise((resolve, reject) => {
+			resolve(0);//al parecer solo puede recibir 1 solo parametro
+		});
+
+		function miFun(a, b){
+			
+			c = a + b;
+			a = b;
+			b = c;
+			console.log(a);
+			console.log(b);
+			console.log(c);
+			return (a, b);
+		}
+
+		prom
+		.then((a,b)=>{
+		    var b=1;
+			console.log(a+" "+b);
+			return miFun(a,b);
+		})
+		.then((a, b)=>{
+		    console.log(a+" "+b);
+			//return miFun(a,b);
+		});*/
+		
+		
+		var a=0;
+		var b=1;
+		var c=0;
+		let prom = new Promise((resolve, reject) => {
+		    console.log(a);
+			console.log(b);
+			c = a+b;
+			a = b;
+			b = c;
+			//console.log(c);
+			resolve(c);//al parecer solo puede recibir 1 solo parametro
+		});
+		
+        /*function fun(){
+			console.log(b);
+			c = a+b;
+			a = b;
+			b = c;
+		}*/
+		
+		prom
+		.then((c)=>{
+			console.log(b);
+			c = a+b;
+			a = b;
+			b = c;
+		})
+		.then((c)=>{
+			console.log(b);
+			c = a+b;
+			a = b;
+			b = c;
+		})
+		.then((c)=>{
+			console.log(b);
+			c = a+b;
+			a = b;
+			b = c;
+		})
+		.then((c)=>{
+			console.log(b);
+			c = a+b;
+			a = b;
+			b = c;
+		})
+		.then((c)=>{
+			console.log(b);
+			c = a+b;
+			a = b;
+			b = c;
+		})
+		/*let prom = new Promise((resolve, reject) => {
+			resolve(5);
+		});
+		function miFun(m){
+			console.log(m+1);
+			return m+1;
+		}
+		prom
+		.then((x)=>{
+			return miFun(x);
+		})
+		.then((x)=>{
+			return miFun(x);
+		})
+		.then(x=>miFun(x))
+		.then(miFun);*/
+  
+  
+		/*let laPromesa = new Promise((resolve, reject) => {
+			//Llamamos a resolve(...) cuando lo que estabamos haciendo finaliza con éxito, y reject(...) cuando falla.
+			//En este ejemplo, usamos setTimeout(...) para simular código asíncrono.
+			console.log("estoy en la promesa");
+			setTimeout(function(){
+				resolve("¡Éxito!"); 
+			}, 2000);
+		});
+		laPromesa.then((r)=>{
+			console.log(r)
+		});
+		laPromesa.catch((err)=> {
+			console.log("err.message");
+		});*/
+    </script>
+</html>

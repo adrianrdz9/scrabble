@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset='UTF-8'/>
+		<style>
+		    .esc
+			{
+			    display: none;
+			}
+			.vis
+			{
+			    display: block;
+			}
+		</style>
+	</head>
+	<body>
+	    <button id="pg" class="vis">Pequeño/Grande</button><br/>
+		<button id="rot" class="vis">Rotación</button><br/>
+		<button id="tr" class="vis">Traslación</button>
+		<span class="esc">
+		    Ingresa rotación:<input id="res" type="text" size="2" maxlength="2"/>
+			<button id="brot" class="vis">Enviar</button>
+		</span>
+		<canvas id="area"  width="1000" height="1000">
+			Su navegador no soporta el elemento canvas 
+        </canvas>
+	</body>
+	<script type="text/javascript">
+	    var pg = document.getElementById("pg");
+		var rot = document.getElementById("rot");
+		var tr = document.getElementById("tr");
+		var span = document.getElementsByTagName("span")[0];
+		var inp = document.getElementsByTagName("input")[0];
+		var brot = document.getElementById("brot");
+		var area = document.getElementById("area");//los client no pueden estar arriba...
+		/*area.width=window.innerWidth;
+		area.height=window.innerHeight;*/
+		var contexto = area.getContext("2d");
+		
+		pg.addEventListener("click", ()=>{
+			console.log("un click");
+			//////////////////////////////////////////////////////////////////
+			contexto.scale(0.7,0.7);/////
+			contexto.beginPath();
+				contexto.arc(600,300,100, 3/4*Math.PI, 5/3*Math.PI, true);
+				contexto.stroke();
+				contexto.lineWidth=5;
+				
+				contexto.quadraticCurveTo(680,210,700,200);
+				contexto.stroke();
+				contexto.quadraticCurveTo(750,175,700,150);
+				contexto.stroke();
+				contexto.quadraticCurveTo(690,110,650,100);
+				contexto.stroke();
+				contexto.quadraticCurveTo(570,90,590,180);
+				contexto.stroke();
+				contexto.quadraticCurveTo(640,300,540,340);
+				contexto.stroke();
+				contexto.quadraticCurveTo(200,150,530,370);
+				contexto.stroke();
+				contexto.fillStyle="yellow";
+				contexto.fill();
+			contexto.closePath();
+			contexto.beginPath();
+				contexto.moveTo(550,335);
+				contexto.quadraticCurveTo(720,330,604,220);
+				contexto.stroke();
+				contexto.closePath();
+				contexto.beginPath();
+				contexto.moveTo(600,400);
+				contexto.lineTo(600,450);
+				contexto.stroke();
+				contexto.lineTo(580,455);
+				contexto.stroke();
+				contexto.lineTo(620,455);
+				contexto.stroke();
+				contexto.lineTo(600,450);
+				contexto.stroke();
+				contexto.closePath();
+				contexto.beginPath();
+				contexto.arc(650,140,4,0,2*Math.PI,true);
+				contexto.stroke();
+				contexto.fillStyle="black";
+				contexto.fill();
+			contexto.closePath();
+			//////////////////////////////////////////////////////////////////////////
+		});
+		pg.addEventListener("dblclick", ()=>{
+		    console.log("doble click");
+			///////////////////////////////////////////////////////
+			contexto.scale(1.3,1.3);/////
+			contexto.beginPath();
+				contexto.arc(600,300,100, 3/4*Math.PI, 5/3*Math.PI, true);
+				contexto.stroke();
+				contexto.lineWidth=5;
+				
+				contexto.quadraticCurveTo(680,210,700,200);
+				contexto.stroke();
+				contexto.quadraticCurveTo(750,175,700,150);
+				contexto.stroke();
+				contexto.quadraticCurveTo(690,110,650,100);
+				contexto.stroke();
+				contexto.quadraticCurveTo(570,90,590,180);
+				contexto.stroke();
+				contexto.quadraticCurveTo(640,300,540,340);
+				contexto.stroke();
+				contexto.quadraticCurveTo(200,150,530,370);
+				contexto.stroke();
+				contexto.fillStyle="yellow";
+				contexto.fill();
+			contexto.closePath();
+			contexto.beginPath();
+				contexto.moveTo(550,335);
+				contexto.quadraticCurveTo(720,330,604,220);
+				contexto.stroke();
+				contexto.closePath();
+				contexto.beginPath();
+				contexto.moveTo(600,400);
+				contexto.lineTo(600,450);
+				contexto.stroke();
+				contexto.lineTo(580,455);
+				contexto.stroke();
+				contexto.lineTo(620,455);
+				contexto.stroke();
+				contexto.lineTo(600,450);
+				contexto.stroke();
+				contexto.closePath();
+				contexto.beginPath();
+				contexto.arc(650,140,4,0,2*Math.PI,true);
+				contexto.stroke();
+				contexto.fillStyle="black";
+				contexto.fill();
+			contexto.closePath();
+			/////////////////////////////////////////////////////////
+		});
+        rot.addEventListener("click", ()=>{
+			pg.classList.remove("vis");
+			rot.classList.remove("vis");
+			tr.classList.remove("vis");
+			pg.classList.add("esc");
+			rot.classList.add("esc");
+			tr.classList.add("esc");
+			span.classList.remove("esc");
+			span.classList.add("vis");
+			brot.addEventListener("click", ()=>{
+			    var resp = inp.value;
+				console.log(resp);
+                //////////////////////////////////////////////////////////////
+				contexto.rotate(resp*Math.PI/180);/////
+			contexto.beginPath();
+				contexto.arc(600,300,100, 3/4*Math.PI, 5/3*Math.PI, true);
+				contexto.stroke();
+				contexto.lineWidth=5;
+				//contexto.moveTo(700,250);
+				/*contexto.lineTo(700,200);
+				contexto.stroke();*/
+				//contexto.moveTo(600,300)
+				contexto.quadraticCurveTo(680,210,700,200);
+				contexto.stroke();
+				contexto.quadraticCurveTo(750,175,700,150);
+				contexto.stroke();
+				contexto.quadraticCurveTo(690,110,650,100);
+				contexto.stroke();
+				contexto.quadraticCurveTo(570,90,590,180);
+				contexto.stroke();
+				contexto.quadraticCurveTo(640,300,540,340);
+				contexto.stroke();
+				contexto.quadraticCurveTo(200,150,530,370);
+				contexto.stroke();
+				contexto.fillStyle="yellow";
+				contexto.fill();
+			contexto.closePath();
+			contexto.beginPath();
+				contexto.moveTo(550,335);
+				contexto.quadraticCurveTo(720,330,604,220);
+				contexto.stroke();
+				contexto.closePath();
+				contexto.beginPath();
+				contexto.moveTo(600,400);
+				contexto.lineTo(600,450);
+				contexto.stroke();
+				contexto.lineTo(580,455);
+				contexto.stroke();
+				contexto.lineTo(620,455);
+				contexto.stroke();
+				contexto.lineTo(600,450);
+				contexto.stroke();
+				contexto.closePath();
+				contexto.beginPath();
+				contexto.arc(650,140,4,0,2*Math.PI,true);
+				contexto.stroke();
+				contexto.fillStyle="black";
+				contexto.fill();
+			contexto.closePath();
+				/////////////////////////////////////////////////////////////
+				span.classList.remove("vis");
+			    span.classList.add("esc");
+				pg.classList.remove("esc");
+				rot.classList.remove("esc");
+				tr.classList.remove("esc");
+				pg.classList.add("vis");
+				rot.classList.add("vis");
+				tr.classList.add("vis");
+			});
+		});
+		tr.addEventListener("click", ()=>{
+		    var cantx = Math.floor(Math.random()*600+1);
+			var canty = Math.floor(Math.random()*200+1);
+			console.log(cantx);
+			console.log(canty);
+			//////////////////////////////////////////////////////////////////
+			contexto.translate(cantx, canty);////
+			contexto.beginPath();
+				contexto.arc(600,300,100, 3/4*Math.PI, 5/3*Math.PI, true);
+				contexto.stroke();
+				contexto.lineWidth=5;
+				//contexto.moveTo(700,250);
+				/*contexto.lineTo(700,200);
+				contexto.stroke();*/
+				//contexto.moveTo(600,300)
+				contexto.quadraticCurveTo(680,210,700,200);
+				contexto.stroke();
+				contexto.quadraticCurveTo(750,175,700,150);
+				contexto.stroke();
+				contexto.quadraticCurveTo(690,110,650,100);
+				contexto.stroke();
+				contexto.quadraticCurveTo(570,90,590,180);
+				contexto.stroke();
+				contexto.quadraticCurveTo(640,300,540,340);
+				contexto.stroke();
+				contexto.quadraticCurveTo(200,150,530,370);
+				contexto.stroke();
+				contexto.fillStyle="yellow";
+				contexto.fill();
+			contexto.closePath();
+			contexto.beginPath();
+				contexto.moveTo(550,335);
+				contexto.quadraticCurveTo(720,330,604,220);
+				contexto.stroke();
+				contexto.closePath();
+				contexto.beginPath();
+				contexto.moveTo(600,400);
+				contexto.lineTo(600,450);
+				contexto.stroke();
+				contexto.lineTo(580,455);
+				contexto.stroke();
+				contexto.lineTo(620,455);
+				contexto.stroke();
+				contexto.lineTo(600,450);
+				contexto.stroke();
+				contexto.closePath();
+				contexto.beginPath();
+				contexto.arc(650,140,4,0,2*Math.PI,true);
+				contexto.stroke();
+				contexto.fillStyle="black";
+				contexto.fill();
+			contexto.closePath();
+			////////////////////////////////////////////////////////////////////
+		});
+</script>
+</html>

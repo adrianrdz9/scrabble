@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Actividad 18</title>
+	</head>
+	<body>
+		<canvas id="area">
+            Su navegador no soporta el elemento canvas 
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		var area = document.getElementById("area");
+		area.width=window.innerWidth;
+		area.height=window.innerHeight;
+		var contexto = area.getContext("2d");
+			contexto.beginPath();
+				contexto.fillStyle = "green";
+				contexto.strokeStyle = "gray";
+				contexto.fillRect(200, 230, 200, 200); //con relleno
+				contexto.strokeRect(200, 230, 200, 200); //sin relleno
+				//contexto.rect(200, 300, 50, 50);
+			contexto.closePath();
+			contexto.beginPath();
+				contexto.fillStyle = "green";
+				contexto.strokeStyle = "gray";
+				contexto.fillRect(450, 230, 250, 200); //con relleno
+				contexto.strokeRect(450, 230, 250, 200); //sin relleno
+				//contexto.rect(200, 300, 50, 50);
+			contexto.closePath();
+			contexto.beginPath();
+				contexto.arc(800, 320, 50, 0, 2*Math.PI, false);
+				contexto.stroke();
+				contexto.fillStyle="blue";
+				contexto.fill();
+			contexto.closePath();
+			contexto.beginPath();
+				contexto.moveTo(1000,250);
+				contexto.lineTo(1200,450);
+				contexto.lineTo(950,450);
+				contexto.lineTo(1000,250);
+				contexto.stroke();
+				contexto.fillStyle="yellow";
+				contexto.fill();
+			contexto.closePath();
+	</script>
+</html>

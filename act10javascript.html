@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DOM</title>
+		<meta charset="UTF-8"/>
+		<style>
+			div{
+				background-color:black;
+				color:white;
+				margin:40px;
+				padding:40px;
+			}
+			h1,h2{
+				text-align:center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="hola">
+			<h1>HOLA </h1>
+		</div>
+		<div id="cm">
+			<h2>¿Cómo te llamas?</h2>
+			<h2><input id="np" type="text" name="name"/>
+			<button id="sub">Enviar</button></h2>
+		</div>
+		<div id="ld">
+			<h2>Lindo Día</h2>
+		</div>
+		
+	</body>
+	<script type='text/javascript'>
+	    
+
+		
+		var bot = document.getElementById("sub");
+		bot.addEventListener("click", function(){
+		    var inp = document.getElementById("np");
+			var valor = inp.value;
+			var div1 = document.getElementById("hola");
+			var sal = div1.children[0];
+			if(sal.innerHTML == "HOLA ")
+			{
+			    sal.innerHTML += valor;
+			}
+			else
+			{
+			    sal.innerHTML = "HOLA ";
+				sal.innerHTML += valor;
+			}
+			inp.value = "";
+		}, false);
+		
+		
+		
+		var bod = document.getElementsByTagName("body")[0];
+		var divh = document.getElementById("hola");
+		var divc = document.getElementById("cm");
+		var divl = document.getElementById("ld");
+		
+		divh.style.backgroundColor = "#134772";
+		
+		
+		divc.style.backgroundColor = "#134772";
+		
+		
+		divl.style.backgroundColor = "#134772";
+		
+		
+		bod.style.backgroundColor = "#6E7137";
+		
+		divh.addEventListener("mouseleave", function(){
+		    divh.style.backgroundColor = "#134772";
+		    
+			divh.style.color = "#FFFFFF";
+			
+			divh.style.fontSize = "medium";
+		});
+		
+		divc.addEventListener("mouseleave", function(){
+		    divc.style.backgroundColor = "#134772";
+		    
+			divc.style.color = "#FFFFFF";
+			
+			divc.style.fontSize = "medium";
+		});
+		
+		divl.addEventListener("mouseleave", function(){
+		    divl.style.backgroundColor = "#134772";
+		    
+			divl.style.color = "#FFFFFF";
+			
+			divl.style.fontSize = "small";
+		});
+		
+		
+		divh.addEventListener("mouseenter", function(){
+		    divh.style.backgroundColor = "#C4CC22";
+			//bot.style.color = "red";
+			divh.style.color = "#7F1F1B";
+			
+			divh.style.fontSize = "medium";
+		});
+		
+		divc.addEventListener("mouseenter", function(){
+		    divc.style.backgroundColor = "#C4CC22";
+		    
+			divc.style.color = "#7F1F1B";
+			
+			divc.style.fontSize = "medium";
+		});
+		
+		divl.addEventListener("mouseenter", function(){
+		    divl.style.backgroundColor = "#C4CC22";
+		    
+			divl.style.color = "#7F1F1B";
+			
+			divl.style.fontSize = "small";
+		});
+		bot.addEventListener("mouseleave", function(){
+			bot.style.backgroundColor = "white";
+		});
+		bot.addEventListener("mouseenter", function(){
+			bot.style.backgroundColor = "#008B8B";
+		});
+		bot.addEventListener("click", function(){
+			bot.style.backgroundColor = "#20B2AA";
+		});
+		
+	</script>
+</html>

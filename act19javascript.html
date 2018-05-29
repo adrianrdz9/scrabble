@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<canvas id="area">
+			Su navegador no soporta el elemento canvas 
+        </canvas>
+	</body>
+	<script type="text/javascript">
+	    var cuerpo = document.getElementsByTagName("body")[0];
+		var area = document.getElementById("area");//los client no pueden estar arriba...
+		area.width=window.innerWidth;
+		area.height=window.innerHeight;
+		var contexto = area.getContext("2d");
+		//contexto.translate(40, 10);
+        contexto.beginPath();
+			contexto.arc(600,300,100, 3/4*Math.PI, 5/3*Math.PI, true);
+			contexto.stroke();
+			contexto.lineWidth=5;
+			//contexto.moveTo(700,250);
+			/*contexto.lineTo(700,200);
+			contexto.stroke();*/
+			//contexto.moveTo(600,300)
+			contexto.quadraticCurveTo(680,210,700,200);
+			contexto.stroke();
+			contexto.quadraticCurveTo(750,175,700,150);
+			contexto.stroke();
+			contexto.quadraticCurveTo(690,110,650,100);
+			contexto.stroke();
+			contexto.quadraticCurveTo(570,90,590,180);
+			contexto.stroke();
+			contexto.quadraticCurveTo(640,300,540,340);
+			contexto.stroke();
+			contexto.quadraticCurveTo(200,150,530,370);
+			contexto.stroke();
+			contexto.fillStyle="yellow";
+			contexto.fill();
+		contexto.closePath();
+		contexto.beginPath();
+			contexto.moveTo(550,335);
+			contexto.quadraticCurveTo(720,330,604,220);
+			contexto.stroke();
+			contexto.closePath();
+			contexto.beginPath();
+			contexto.moveTo(600,400);
+			contexto.lineTo(600,450);
+			contexto.stroke();
+			contexto.lineTo(580,455);
+			contexto.stroke();
+			contexto.lineTo(620,455);
+			contexto.stroke();
+			contexto.lineTo(600,450);
+			contexto.stroke();
+			contexto.closePath();
+			contexto.beginPath();
+			contexto.arc(650,140,4,0,2*Math.PI,true);
+			contexto.stroke();
+			contexto.fillStyle="black";
+			contexto.fill();
+		contexto.closePath();
+		//////////////////////////////////////////////////////////////////////
+		cuerpo.addEventListener("click", ()=>{
+			var x = event.clientX;
+            var y = event.clientY;
+			console.log(x+" "+y);
+			/*var x = 30;
+			var y = 40;*/
+		contexto.beginPath();
+			contexto.arc(600+x,300+y,100, 3/4*Math.PI, 5/3*Math.PI, true);
+			contexto.stroke();
+			contexto.lineWidth=5;
+			contexto.quadraticCurveTo(680+x,210+y,700+x,200+y);
+			contexto.stroke();
+			contexto.quadraticCurveTo(750+x,175+y,700+x,150+y);
+			contexto.stroke();
+			contexto.quadraticCurveTo(690+x,110+y,650+x,100+y);
+			contexto.stroke();
+			contexto.quadraticCurveTo(570+x,90+y,590+x,180+y);
+			contexto.stroke();
+			contexto.quadraticCurveTo(640+x,300+y,540+x,340+y);
+			contexto.stroke();
+			contexto.quadraticCurveTo(200+x,150+y,530+x,370+y);
+			contexto.stroke();
+			contexto.fillStyle="yellow";
+			contexto.fill();
+		contexto.closePath();
+		contexto.beginPath();
+			contexto.moveTo(550+x,335+y);
+			contexto.quadraticCurveTo(720+x,330+y,604+x,220+y);
+			contexto.stroke();
+			contexto.closePath();
+			contexto.beginPath();
+			contexto.moveTo(600+x,400+y);
+			contexto.lineTo(600+x,450+y);
+			contexto.stroke();
+			contexto.lineTo(580+x,455+y);
+			contexto.stroke();
+			contexto.lineTo(620+x,455+y);
+			contexto.stroke();
+			contexto.lineTo(600+x,450+y);
+			contexto.stroke();
+			contexto.closePath();
+			contexto.beginPath();
+			contexto.arc(650+x,140+y,4,0,2*Math.PI,true);
+			contexto.stroke();
+			contexto.fillStyle="black";
+			contexto.fill();
+		contexto.closePath();
+		});
+
+</script>
+</html>

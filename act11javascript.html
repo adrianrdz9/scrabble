@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DOM</title>
+		<meta charset="UTF-8"/>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<style>
+			div{
+				background-color:black;
+				color:white;
+				margin:40px;
+				padding:40px;
+			}
+			h1,h2{
+				text-align:center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="hola">
+			<h1>HOLA </h1>
+		</div>
+		<div id="cm">
+			<h2>¿Cómo te llamas?</h2>
+			<h2><input id="np" type="text" name="name"/>
+			<button id="sub">Enviar</button>
+		</div>
+		<div id="ld">
+			<h2>Lindo Día</h2>
+		</div>
+		
+	</body>
+	<script type='text/javascript'>
+	    $("#sub").click(function(){
+		    var val = $("#np").val();
+			//alert(inp);
+			var sal = $("#hola").children("h1");
+			var cont = sal.html();
+			//alert(cont);
+			if(cont == "HOLA ")/*NOTA: no acepta poner cosas como if(sal.html == "HOLA "). solo de uno solo (solo sal)*/
+			{
+			    sal.html("HOLA "+val);//también iba a poner $("#hola").children("h1").html("hey");  pero es más largo...
+				//alert(val);
+			}
+			else
+			{
+			    sal.html("HOLA "+val);
+			}
+			$("#np").val("");
+		});
+		$("body").children().css("background-color", "#134772");
+		$("body").css("background-color", "#6E7137");
+		$("#hola, #cm, #ld").mouseleave(function(){
+		    $("#hola, #cm, #ld").css({
+			    "background-color": "#134772",
+				"color": "white",
+				"font-size": "medium"
+			});
+		});
+		/*$("#cm").mouseleave(function(){
+		    $("#cm").css({
+			    "background-color": "#134772",
+				"color": "#FFFFFF",
+				"font-size": "medium"
+			});
+		});*/
+		$("#hola").mouseenter(function(){
+		    $("#hola").css({
+			    "background-color": "#C4CC22",
+				"color": "#7F1F1B"
+			});
+		});
+		$("#cm").mouseenter(function(){
+		    $("#cm").css({
+			    "background-color": "#C4CC22",
+				"color": "#7F1F1B"
+			});
+		});
+		$("#ld").mouseenter(function(){
+		    $("#ld").css({
+			    "background-color": "#C4CC22",
+				"color": "#7F1F1B"
+			});
+		});
+		$("#sub").mouseleave(function(){
+		    $("#sub").css("background-color", "white");
+		});
+		$("#sub").mouseenter(function(){
+		    $("#sub").css("background-color", "#008B8B");
+		});
+		$("#sub").click(function(){
+		    $("#sub").css("background-color", "#20B2AA");
+		});
+	</script>
+</html>

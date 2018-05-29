@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <title>Actividad14</title>
+            <meta charset='UTF-8'/>
+			<style>
+			div{
+				background-color:black;
+				color:white;
+				margin: 3%;
+				box-sizing: border-box;
+				padding: 2%;
+				width: 15%;
+				height: 4%;
+			}
+			h1{
+				text-align:center;
+			}
+		</style>
+    </head>
+    <body>
+        <div class="b"><h1>UNO</h1></div>
+		<div class="b"><h1>DOS</h1></div>
+		<div class="b"><h1>TRES</h1></div>
+		<div class="b"><h1>CUATRO</h1></div>
+    </body>
+    <script type='text/javascript'>
+	    var b1 = document.getElementsByClassName("b")[0];
+		var b2 = document.getElementsByClassName("b")[1];
+		var b3 = document.getElementsByClassName("b")[2];
+		var b4 = document.getElementsByClassName("b")[3];
+		b1.addEventListener("click", function(){
+		    function mov(err, n, fun)
+			{
+			    setTimeout(function(){
+				    document.getElementsByClassName("b")[n].style.color = "red";
+				}, 0+(n*1000));
+			    
+				setTimeout(function(){
+				    document.getElementsByClassName("b")[n].style.color = "white";
+				}, 1000+(n*1000));
+				return fun(n+1);
+			}
+			mov(null, 0, (n)=>{
+		        return mov(null, n, (n)=>{
+					return mov(null, n, (n)=>{
+						return mov(null, n, (n)=>{
+						    setTimeout(function(){
+								document.getElementsByClassName("b")[n].style.color = "red";
+							}, 0+(n*1000));
+							setTimeout(function(){
+								document.getElementsByClassName("b")[n].style.color = "white";
+							}, 1000+(n*1000));
+							return n+1;
+						});
+					});
+				});
+	    	});
+		});
+		b2.addEventListener("click", function(){
+		    function mov(err, n, fun)
+			{
+			    setTimeout(function(){
+				    document.getElementsByClassName("b")[n].style.color = "blue";
+				}, (n*1000)-1000);
+			    
+				setTimeout(function(){
+				    document.getElementsByClassName("b")[n].style.color = "white";
+				}, (n*1000));
+				return fun(n+1);
+			}
+			mov(null, 1, (n)=>{
+				mov(null, n, (n)=>{
+					mov(null, n, (n)=>{
+						setTimeout(function(){
+							document.getElementsByClassName("b")[n].style.color = "blue";
+						}, (n*1000)-1000);
+						setTimeout(function(){
+							document.getElementsByClassName("b")[n].style.color = "white";
+						}, (n*1000));
+						return n+1;
+					});
+				});
+	    	});
+		});
+		b3.addEventListener("click", function(){
+		    function mov(err, n, fun)
+			{
+			    setTimeout(function(){
+				    document.getElementsByClassName("b")[n].style.color = "yellow";
+				}, (n*1000)-2000);
+			    
+				setTimeout(function(){
+				    document.getElementsByClassName("b")[n].style.color = "white";
+				}, (n*1000)-1000);
+				return fun(n+1);
+			}
+			mov(null, 2, (n)=>{
+				mov(null, n, (n)=>{
+					setTimeout(function(){
+						document.getElementsByClassName("b")[n].style.color = "yellow";
+					}, (n*1000)-2000);
+					setTimeout(function(){
+						document.getElementsByClassName("b")[n].style.color = "white";
+					}, (n*1000)-1000);
+					n+=1;
+				});
+	    	});
+		});
+		b4.addEventListener("click", function(){
+		    function mov(err, n, fun)
+			{
+			    setTimeout(function(){
+				    document.getElementsByClassName("b")[n].style.color = "purple";
+				}, (n*1000)-3000);
+			    
+				setTimeout(function(){
+				    document.getElementsByClassName("b")[n].style.color = "white";
+				}, (n*1000)-2000);
+			    fun(n+1);
+			}
+			mov(null, 3, (n)=>{
+				setTimeout(function(){
+					document.getElementsByClassName("b")[n].style.color = "purple";
+				}, (n*1000)-3000);
+				setTimeout(function(){
+					document.getElementsByClassName("b")[n].style.color = "white";
+				}, (n*1000)-2000);
+				n+=1;
+	    	});
+		});
+    </script>
+</html>

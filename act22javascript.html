@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="UTF-8"/>
+	</head>
+	<body>
+		<canvas id="area">
+			Su navegador no soporta el elemento canvas 
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		var can=document.getElementById('area');
+		can.width=window.innerWidth;
+		can.height=window.innerHeight;
+		var con=can.getContext('2d'); 
+		var start;
+		
+		var img = new Image();
+        img.src = "ani.png";
+		img.onload = function(){
+            con.drawImage(img, 0, 10);
+		}
+		
+		var x = -400;
+		//var son = 0;
+		function Animacion(relojInterno) {
+			if(!start) 
+				start = relojInterno;
+			var progreso = relojInterno - start;
+			x+=10;
+			if(progreso < 1000)
+			{
+			    con.clearRect(0, 0, can.width, can.height);//limpia pantalla
+			    console.log("proceso: "+progreso);
+				console.log(x);
+				
+				/*con.fillRect(x,10,100,100);//otras pruebas
+				con.stroke();*/
+				
+				//con.rotate(2 * Math.PI / 180);//otras pruebas
+				//con.translate(50,0);
+				
+				con.drawImage(img, x, 10);
+				requestAnimationFrame(Animacion);//función recursiva
+			}
+			else{
+			    console.log("final");
+				/*var musica = new Audio("paja.mp3");//no pude ponerle el audio...
+				musica.play();*/
+			}
+		}
+		requestAnimationFrame(Animacion);//función que llama a la animación
+	</script>
+</html>
