@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Act17, PHP JS BD</title>
+		<meta charset='UTF-8'/>
+	</head>
+	<body>
+	    <p>Escribe un número de cuenta. Los que están en la BD son: 316004849, 317000849, 317004849, 317504849.</p>
+		<input id='cue' type='text' size='9' maxlength='9'/>
+		<button id='bot'>Buscar</button><br/>
+		<div id="resul"></div>
+	</body>
+	<script type='text/javascript'>
+		var bot = document.getElementById("bot");
+		bot.addEventListener("click", ()=>{
+			var cue = document.getElementById("cue").value;
+			var xcue = new XMLHttpRequest();
+			xcue.onreadystatechange = function(){
+				if(this.readyState==4 && this.status==200) {
+					var res = document.getElementById("resul");
+					res.innerHTML = this.response;//la respuesta obtenida del php
+				}
+			};
+			xcue.open("POST", "alums.php", true);
+			xcue.responseType = "text";
+			xcue.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xcue.send("q=" + cue);
+		});
+	</script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Act16</title>
+<meta charset='UTF-8'/>
+</head>
+<body>
+    <input id='nom' type='text' size='10' maxlength='10'/>
+	<button id='bot'>Buscar</button><br/>
+	<div id="resul"></div>
+</body>
+<script type='text/javascript'>
+    var bot = document.getElementById("bot");
+    bot.addEventListener("click", ()=>{
+		var nom = document.getElementById("nom").value;
+		//alert(nom);
+		var xnom = new XMLHttpRequest();
+		xnom.onreadystatechange = function(){
+			if(this.readyState==4 && this.status==200) {
+				var res = document.getElementById("resul");
+				res.innerHTML = this.response;//la respuesta obtenida del php
+			}
+        };
+		xnom.open("POST", "mascotas.php", true);
+		xnom.responseType = "text";
+        xnom.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xnom.send("q=" + nom);
+    });
+</script>
+</html>
