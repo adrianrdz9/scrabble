@@ -1,5 +1,5 @@
-var canvas = document.querySelector("#tablero");
-var ctx = canvas.getContext("2d");
+let canvas = document.querySelector("#tablero");
+let ctx = canvas.getContext("2d");
 var tamCuadro = canvas.width/15;
  
 var direccion = 0;
@@ -240,7 +240,7 @@ function ponerPalabra(palabra){
             tablero();
         }
         
-    })
+    });
 }
 
 //ponerPalabra("hola");

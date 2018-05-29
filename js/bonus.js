@@ -3,7 +3,7 @@ var divpun = document.getElementById("bonusPuntaje");
 
 //alert(i1+" "+i2);
 
-setInterval(function(){
+document.bonus = setInterval(function(){
     var i1 = Math.floor(Math.random()*5+1);//del 1 al 5, dpendiendo de este num, aparece el botón bonus
     var i2 = Math.floor(Math.random()*5+1);// del 1 al 5, dependiendo de éste aparece el botón punt
 

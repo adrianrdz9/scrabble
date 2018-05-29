@@ -23,6 +23,25 @@
             height: 70px;
             width: 150px;
         }
+
+        .sub-container{
+            position: relative;
+        }
+
+        .time{
+            position: absolute;
+            left: 30%;
+            top: 15px
+        }
+
+        #rotar, #reset, #listo{
+            background-color: teal;
+            color: white;
+            border: 0;
+            border-radius: 5px;
+            
+        }
+
     </style>
 </head>
 <body>
@@ -31,13 +50,17 @@
         <canvas width="600" height="600" id="tablero" >
             Tu navegador no es compatible
         </canvas>
-        <div class="row">
+        <div class="row sub-container">
             <div class="col">
+                <canvas width="600" height="200" id="fichas">
 
+                </canvas>
             </div>
-            <div class="col">
+            <div class="col time">
                 <span id="tiempo"></span>
-                <button id="rotar">Rotar</button>
+                <button id="rotar">Rotar</button> <br>
+                <button id="reset" class="mt-1">Reset</button>
+                <button id="listo">Listo</button>
             </div>
         </div>
     </div>
@@ -60,5 +83,6 @@
     <script src="./js/buscar.js"></script>
     <script src="./js/puntaje.js"></script>
     <script src="./js/bonus.js"></script>
+    <script src="./js/fichas.js"></script>
 </body>
 </html>

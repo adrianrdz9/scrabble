@@ -35,6 +35,7 @@ function iniciarTemporizador(tiempo, elemento, cb = alert){
         document.querySelector(elemento).innerHTML = formatearSegundo(Math.ceil(document.tiempo));
         if(document.tiempo <= 0){
             clearInterval(document.temporizador);
+            clearInterval(document.bonus);
             cb("Se acabo el tiempo");
         }    
 
