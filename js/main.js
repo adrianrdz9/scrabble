@@ -4,6 +4,12 @@ var tamCuadro = canvas.width/15;
  
 var direccion = 0;
 
+document.puntaje = 0;
+
+setInterval(function(){
+    $("#puntaje").html(document.puntaje)
+}, 2)
+
 $("#rotar").on("click", function(){
     direccion ++;
     if(direccion > 1)
@@ -196,7 +202,7 @@ function ponerPalabra(palabra){
                 l.push( table[xj][yj]);
             }
         });
-
+        var bonus;
         l = l.filter((el)=>{
             if(el.casilla == ""){
                 return false;
@@ -205,6 +211,7 @@ function ponerPalabra(palabra){
                     return false;
                 }else{
                     if(el.casilla.length > 1){
+                        bonus = el.valores;
                         return false;
                     }else{
                         return true;
@@ -238,6 +245,26 @@ function ponerPalabra(palabra){
     
             ctx.clearRect(0,0,canvas.width, canvas.height);
             tablero();
+            var puntos = 0;
+            if(bonus){
+                switch(bonus){
+                    case "DL":
+                        puntos = obtenerPuntaje(palabra[0]);
+                        puntos += obtenerPuntaje(palabra);  
+                        break;
+                    case "DW":
+                        puntos = obtenerPuntaje(palabra)*2;
+                        break;
+                    case "TL":
+                        puntos = obtenerPuntaje(palabra[0])*2;
+                        puntos += obtenerPuntaje(palabra);  
+                        break;
+                    case "TW":
+                        puntos = obtenerPuntaje(palabra)*3;  
+                        break;
+                }
+            }
+            document.puntaje += puntos;
         }
         
     });

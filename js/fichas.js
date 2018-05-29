@@ -1,7 +1,7 @@
 let c = document.querySelector("#fichas");
 let ctx1 = c.getContext("2d");
 
-var fichas = ["A", "B", "C", "D", "E", "F", "G"];
+var fichas = obtenerSet([]);
 var f = [...fichas];
 var palabra = [];
 
@@ -84,6 +84,10 @@ $("#listo").on("click", function(){
                 palabra = [];
                 alert("Ahora coloca tu palabra");
                 ponerPalabra(p); 
+                fichas = fichas.filter((e)=>e!="");
+                fichas = obtenerSet(fichas);
+                f = [...fichas];
+                fichasD();
             }else{
                 alert("Esa no es una palabra");
             }

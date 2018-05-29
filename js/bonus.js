@@ -28,7 +28,7 @@ document.bonus = setInterval(function(){
         pun.classList.add("bot");
         mover(pun);
         pun.addEventListener("click", function(){
-            //Puntaje ++
+            document.puntaje ++;
         });
         setTimeout(function(){
             pun.classList.remove("bot");

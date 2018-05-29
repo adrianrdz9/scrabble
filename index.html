@@ -42,6 +42,12 @@
             
         }
 
+        .puntaje{
+            position: absolute;
+            top: 1em;
+            right: 1em;
+        }
+
     </style>
 </head>
 <body>
@@ -50,6 +56,9 @@
         <canvas width="600" height="600" id="tablero" >
             Tu navegador no es compatible
         </canvas>
+        <div class="puntaje">
+            <span id="puntaje"></span>
+        </div>
         <div class="row sub-container">
             <div class="col">
                 <canvas width="600" height="200" id="fichas">
@@ -75,13 +84,14 @@
     </div>
 
     
-
+    
+    <script src="./js/letras.js"></script>
+    <script src="./js/puntaje.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="./js/temporizador.js"></script>
     <script src="./js/tablero.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/buscar.js"></script>
-    <script src="./js/puntaje.js"></script>
     <script src="./js/bonus.js"></script>
     <script src="./js/fichas.js"></script>
 </body>
