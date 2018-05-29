@@ -28,24 +28,15 @@
             position: relative;
         }
 
-        .time{
-            position: absolute;
-            left: 30%;
-            top: 15px
-        }
-
-        #rotar, #reset, #listo{
-            background-color: teal;
-            color: white;
-            border: 0;
-            border-radius: 5px;
-            
-        }
-
         .puntaje{
             position: absolute;
             top: 1em;
             right: 1em;
+            font-size: 2em;
+        }
+
+        .puntaje::before{
+            content: "Puntos: "
         }
 
     </style>
@@ -59,18 +50,23 @@
         <div class="puntaje">
             <span id="puntaje"></span>
         </div>
-        <h2 id="user" class="d-inline">Hola, </h2>
-        <button class="btn btn-link" id="cambiarUser">Cambiar</button>
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 id="user" class="d-inline">Hola, </h2>
+                <button class="btn btn-link" id="cambiarUser">Cambiar</button>
+            </div>
+            
+            <div class="col-12 ">
+                <span id="tiempo"></span>
+                <button id="rotar" class="btn btn-primary btn-sm mb-2" data-toggle="tooltip" data-placement="top" title="Rotar la palabra que vas a colocar en el tablero">Rotar</button> 
+                <button id="reset" class="btn btn-danger btn-sm mb-2"data-toggle="tooltip" data-placement="top" title="Volver a empezar la palabra que estes formando">Reset</button>
+                <button id="listo" class="btn btn-success btn-sm mb-2" data-toggle="tooltip" data-placement="top" title="Terminar la palabra que estes formando">Listo</button>
+            </div>
+        </div>
         <div class="row sub-container">
             <div class="col">
                 <canvas width="600" height="200" id="fichas">
                 </canvas>
-            </div>
-            <div class="col time">
-                <span id="tiempo"></span>
-                <button id="rotar" data-toggle="tooltip" data-placement="top" title="Rotar la palabra que vas a colocar en el tablero">Rotar</button> <br>
-                <button id="reset" class="mt-1" data-toggle="tooltip" data-placement="left" title="Volver a empezar la palabra que estes formando">Reset</button>
-                <button id="listo" data-toggle="tooltip" data-placement="bottom" title="Terminar la palabra que estes formando">Listo</button>
             </div>
         </div>
     </div>
