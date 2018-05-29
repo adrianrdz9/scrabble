@@ -59,17 +59,18 @@
         <div class="puntaje">
             <span id="puntaje"></span>
         </div>
+        <h2 id="user" class="d-inline">Hola, </h2>
+        <button class="btn btn-link" id="cambiarUser">Cambiar</button>
         <div class="row sub-container">
             <div class="col">
                 <canvas width="600" height="200" id="fichas">
-
                 </canvas>
             </div>
             <div class="col time">
                 <span id="tiempo"></span>
-                <button id="rotar">Rotar</button> <br>
-                <button id="reset" class="mt-1">Reset</button>
-                <button id="listo">Listo</button>
+                <button id="rotar" data-toggle="tooltip" data-placement="top" title="Rotar la palabra que vas a colocar en el tablero">Rotar</button> <br>
+                <button id="reset" class="mt-1" data-toggle="tooltip" data-placement="left" title="Volver a empezar la palabra que estes formando">Reset</button>
+                <button id="listo" data-toggle="tooltip" data-placement="bottom" title="Terminar la palabra que estes formando">Listo</button>
             </div>
         </div>
     </div>
@@ -83,11 +84,29 @@
 		</div>
     </div>
 
-    
-    
+    <div class="modal" tabindex="-1" role="dialog" id="userModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bienvenido/a</h5>
+            </div>
+            <div class="modal-body text-center">
+                <label for="userInput">Introduce un nombre de usuario</label>
+                <input type="text" class="form-control" id="userInput">
+                <button id="submitUser" class="btn btn-success mt-3">
+                    Continuar
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="./js/session.js"></script>
     <script src="./js/letras.js"></script>
     <script src="./js/puntaje.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="./js/temporizador.js"></script>
     <script src="./js/tablero.js"></script>
     <script src="./js/main.js"></script>

@@ -1,7 +1,9 @@
 let canvas = document.querySelector("#tablero");
 let ctx = canvas.getContext("2d");
 var tamCuadro = canvas.width/15;
- 
+
+$('[data-toggle="tooltip"]').tooltip()
+
 var direccion = 0;
 
 document.puntaje = 0;
